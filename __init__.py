@@ -1,3 +1,4 @@
+# mini web.py app for hosting alternative server
 from multiprocessing import Process
 import web, testbot, json
 import cases
@@ -15,7 +16,7 @@ class main:
 		# revieve message
 		print web.data()
 		# add message to txt file
-		return testbot.recieve(json.loads(web.data()))
+		return testbot.recieve(web.data())
 
 if __name__ == "__main__":
   p1 = Process(target=web.httpserver.runsimple, args=(app.wsgifunc(), ("0.0.0.0", 8888)))

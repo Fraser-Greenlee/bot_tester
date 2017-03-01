@@ -1,6 +1,7 @@
 from os import listdir, makedirs
 from os.path import isfile, join, exists
 import json, requests, random, string, time
+import testbot
 
 def getusers():
 	return [int(f[:f.index('.')]) for f in listdir('messages/')]
@@ -21,10 +22,6 @@ class User:
 	def __init__(self,*id):
 		if not exists('messages/'):
 			makedirs('messages/')
-		#
-		self.url = 'http://0.0.0.0:8080/webhook'
-		self.page_id = 1
-		#
 		if len(id) is 0:
 			# random new id
 			users = getusers()
@@ -80,12 +77,12 @@ class User:
 
 	def postback(self,key):
 		requests.post(
-			self.url,
+			testbot.send_to,
 			json={
 				"object":"page",
 				"entry":[
 					{
-						"id": self.page_id,
+						"id": testbot.page_id,
 						"time":timestamp(),
 						"messaging":[
 							{
@@ -93,7 +90,7 @@ class User:
 									"id":self.id
 								},
 								"recipient":{
-									"id": self.page_id
+									"id": testbot.page_id
 								},
 								"timestamp":timestamp(),
 							  "postback":{
@@ -114,12 +111,12 @@ class User:
 		#
 		if type == 'text':
 			requests.post(
-				self.url,
+				testbot.send_to,
 				json={
 				  "object":"page",
 				  "entry":[
 				    {
-				      "id": self.page_id,
+				      "id": testbot.page_id,
 				      "time":timestamp(),
 				      "messaging":[
 				        {
@@ -127,7 +124,7 @@ class User:
 				            "id":self.id
 				          },
 				          "recipient":{
-				            "id": self.page_id
+				            "id": testbot.page_id
 				          },
 									"timestamp":timestamp(),
 								  "message":{
@@ -141,12 +138,12 @@ class User:
 				})
 		else:
 			requests.post(
-				self.url,
+				testbot.send_to,
 				json={
 				  "object":"page",
 				  "entry":[
 				    {
-				      "id": self.page_id,
+				      "id": testbot.page_id,
 				      "time":timestamp(),
 				      "messaging":[
 				        {
@@ -154,7 +151,7 @@ class User:
 				            "id":self.id
 				          },
 				          "recipient":{
-				            "id": self.page_id
+				            "id": testbot.page_id
 				          },
 									"timestamp":timestamp(),
 								  "message":{

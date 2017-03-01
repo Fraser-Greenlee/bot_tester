@@ -1,6 +1,7 @@
 import json
 
-def recieve(jsn):
+def recieve(web_data):
+	jsn = json.loads(web_data)
 	# test message structure
 	try:
 		from_id = jsn['recipient']['id']
