@@ -5,7 +5,7 @@ I wanted a tool to write basic test cases for my messenger bot so I made this.
 
 ### Disclaimer
 
-This is really barebones at the moment but I am hoping to imporve it. Feel free to post issues or feature requests.
+This is really barebones and hacked together tool at the moment but I am hoping to improve it. Feel free to post issues or feature requests.
 
 
 # Setup
@@ -18,7 +18,7 @@ cd bot_tester
 pip install requirements.txt
 ```
 
-Reset your sending url to http://0.0.0.0:8888 for testing.
+Reset your sending url to `http://0.0.0.0:8888` for testing.
 
 Run server and test cases.
 
@@ -51,11 +51,3 @@ if False:
 Send a text message from the user.
 
 `user.send("blue")`
-
-Test the user received a message. And append to results list.
-
-`results.append( user.did_receive("Got it!") )`
-
-Show the test results.
-
-`testbot.results(results)`
