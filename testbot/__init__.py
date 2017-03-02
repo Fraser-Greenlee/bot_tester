@@ -7,11 +7,17 @@ send_to = 'http://0.0.0.0:8080/webhook'
 page_id = 1
 
 # tools
-def test(got, expected):
+def equals(got, expected):
 	if expected == got:
 		return [True, expected.replace('\n',' \ ')]
 	else:
 		return [False, expected, got]
+
+def test(bol,win,fail):
+	if bol:
+		return [True,win]
+	else:
+		return [False,fail]
 
 def clear_messages():
 	if os.path.exists('messages'):
@@ -25,5 +31,7 @@ def results(ress):
 			if res[0]:
 				print 'PASSED:', res[1]
 			else:
-				print 'FAILED'
-				print 'Expected:', res[1], ' Got:', res[2]
+				if len(res) == 3:
+					print 'FAILED: Expected', res[1], ' Got:', res[2]
+				else:
+					print res[1]

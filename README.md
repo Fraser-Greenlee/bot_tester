@@ -51,3 +51,7 @@ if False:
 Send a text message from the user.
 
 `user.send("blue")`
+
+Send an attachment from the user.
+
+`user.send({'type':"image",'payload':{'url':'http://blahblah.com'}})`

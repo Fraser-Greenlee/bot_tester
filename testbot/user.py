@@ -60,20 +60,32 @@ class User:
 			return [False, msg, '$Nothing New']
 		if len(self.messages()) is 0:
 			return [False, msg, '$Nothing']
-		try:
-			last_msg = self.messages()[-1]['message']['text']
-			res = (unicode(msg, 'utf-8') == last_msg)
-		except Exception as e:
-			print 'Last Message Error:', str(e)
-			res = False
-			last_msg = '$Err: User has no messages.'
+		#
+		if type(msg) == str:
+			try:
+				last_msg = self.messages()[-1]['message']['text']
+				res = (unicode(msg, 'utf-8') == last_msg)
+			except Exception as e:
+				print 'Last Message Error:', str(e)
+				res = False
+				last_msg = '$Err: User has no messages.'
+		else:
+			try:
+				print 'Messages: ', self.messages()
+				last_msg = self.messages()[-1]['message']['attachment']
+				res = last_msg['type'] == msg['type'] and last_msg['payload']['url'] == msg['payload']['url']
+			except Exception as e:
+				print 'Last Attachment Message Error:', str(e)
+				res = False
+				last_msg = '$Err: User has no attachments.'
+		#
 		data = self.read()
 		data['checked_last'] = True
 		self.write(data)
 		if res is False:
 			return [False, msg, last_msg]
 		else:
-			return [True, msg.replace('\n',' \ ')]
+			return [True, str(msg).replace('\n',' \ ')]
 
 	def postback(self,key):
 		requests.post(
@@ -103,13 +115,8 @@ class User:
 			})
 	#
 
-	def send(self,data,**qs):
-		if 'type' not in qs:
-			type = 'text'
-		else:
-			type = qs['type']
-		#
-		if type == 'text':
+	def send(self,data):
+		if type(data) == str:
 			requests.post(
 				testbot.send_to,
 				json={
@@ -158,9 +165,9 @@ class User:
 								    "mid":"mid."+str(timestamp())+":"+random_id(),
 							        "attachments":[
 																      {
-																        "type":"image",
+																        "type":data['type'],
 																        "payload":{
-																          "url":data
+																          "url":data['payload']['url']
 																        }
 																      }
 																    ]
