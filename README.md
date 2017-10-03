@@ -15,7 +15,7 @@ Install Python 2.7
 ```
 git clone https://github.com/Fraser-Greenlee/bot_tester.git
 cd bot_tester
-pip install requirements.txt
+pip install -r requirements.txt
 ```
 
 Reset your sending url to `http://0.0.0.0:8888` for testing.
