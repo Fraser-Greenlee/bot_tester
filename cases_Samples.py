@@ -8,9 +8,7 @@ db = web.database(dbn='postgres',db='secret',user='postgres',pw='',host='localho
 def run():
 	results = []
 	clear_tables()
-	#
 	results.append(new_user())
-	#
 	testbot.results(results)
 
 ## Tools

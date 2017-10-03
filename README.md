@@ -20,7 +20,9 @@ pip install -r requirements.txt
 
 Reset your sending url to `http://0.0.0.0:8888` for testing.
 
-Run server and test cases.
+Set `send_to` in `testbot/__init__.py` to your local bot url.
+
+To run the server and the test cases.
 
 `python __init__.py`
 
